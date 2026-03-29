@@ -50,7 +50,7 @@ export default function StatsCard({
   const displayValue = isSavedCard ? savedCount : value;
 
   return (
-    <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex flex-col gap-3">
+    <div className="bg-white rounded-2xl p-4 border border-[#D2D5DB] border-b-10 shadow-sm flex flex-col gap-3">
       <div className="flex items-start justify-between">
         <div className="p-2 bg-red-50 rounded-xl">
           <Image src={icon} width={20} height={20} alt={title} />
@@ -62,7 +62,7 @@ export default function StatsCard({
       </div>
       <div>
         <p className="text-2xl font-bold text-gray-900">{displayValue}</p>
-        <p className="text-xs text-gray-400 mt-0.5">{title}</p>
+        <p className="text-[16px] font-medium text-gray-400 mt-0.5">{title}</p>
       </div>
     </div>
   );
