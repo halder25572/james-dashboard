@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/static-components */
-"use client";
 
+"use client";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -39,6 +39,19 @@ export default function Sidebar() {
           <Image src="/images/logo.png" width={100} height={100} alt="logo" />
           <p className="mb-2.75 pt-7.75 text-2xl font-bold"><span className="text-[#D93E39]">Vinto</span> Cash</p>
         </div>
+        {/* <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/images/logo.png"
+            width={40}
+            height={40}
+            alt="logo"
+            priority
+          />
+
+          <p className="text-xl font-bold leading-none">
+            <span className="text-[#D93E39]">Vinto</span> Cash
+          </p>
+        </Link> */}
         {/* Close button — mobile only */}
         <button
           className="lg:hidden text-gray-400 hover:text-gray-600"
