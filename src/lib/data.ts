@@ -1,8 +1,56 @@
 import { Vehicle, ActivityItem } from "@/types";
 
-export const vehicles: Vehicle[] = [
+// export const vehicles: Vehicle[] = [
+//   {
+//     id: "1",
+//     name: "2021 Tesla Model 3",
+//     price: 35500,
+//     mileage: 24100,
+//     condition: "Excellent",
+//     location: "Seattle, WA",
+//     image: "/images/tesla1.png",
+//   },
+//   {
+//     id: "2",
+//     name: "2019 Porsche 718",
+//     price: 58000,
+//     mileage: 12500,
+//     condition: "Pristine",
+//     location: "Los Angeles, CA",
+//     image: "/images/Porsche.png",
+//   },
+//   {
+//     id: "3",
+//     name: "2023 Toyota Tundra",
+//     price: 52400,
+//     mileage: 5200,
+//     condition: "New",
+//     location: "Denver, CO",
+//     image: "/images/Toyota.png",
+//   },
+// ];
+
+export const allVehicles: Vehicle[] = [
   {
     id: "1",
+    name: "2020 Honda Accord",
+    price: 24900,
+    mileage: 32450,
+    condition: "Excellent",
+    location: "Austin, TX",
+    image: "/images/1.png",
+  },
+  {
+    id: "2",
+    name: "2022 Ford Explorer",
+    price: 41200,
+    mileage: 18900,
+    condition: "Excellent",
+    location: "Miami, FL",
+    image: "/images/2.png",
+  },
+  {
+    id: "3",
     name: "2021 Tesla Model 3",
     price: 35500,
     mileage: 24100,
@@ -11,7 +59,7 @@ export const vehicles: Vehicle[] = [
     image: "/images/tesla1.png",
   },
   {
-    id: "2",
+    id: "4",
     name: "2019 Porsche 718",
     price: 58000,
     mileage: 12500,
@@ -20,7 +68,16 @@ export const vehicles: Vehicle[] = [
     image: "/images/Porsche.png",
   },
   {
-    id: "3",
+    id: "5",
+    name: "2021 BMW 5 Series",
+    price: 44900,
+    mileage: 21000,
+    condition: "Excellent",
+    location: "Chicago, IL",
+    image: "/images/5.png",
+  },
+  {
+    id: "6",
     name: "2023 Toyota Tundra",
     price: 52400,
     mileage: 5200,
@@ -56,15 +113,13 @@ export const messages = [
     id: "1",
     sender: "Admin Support",
     preview: "Your bid on the Honda Accord has been confirmed.",
-    avatar: "AS",
-    avatarColor: "bg-yellow-500",
+    avatar: "/icons/aad.png",
   },
   {
     id: "2",
     sender: "Billing",
     preview: "Invoice #12345 has been generated.",
-    avatar: "B",
-    avatarColor: "bg-gray-400",
+    avatar: "/icons/ccaa.png",
   },
 ];
 
@@ -104,5 +159,84 @@ export const stats = [
     badge: "Closed",
     badgeColor: "text-[#00D492]",
     icon: "/icons/pur.svg",
+  },
+];
+
+
+export const vehicles: Vehicle[] = [
+  {
+    id: "1",
+    name: "2021 Tesla Model 3",
+    price: 35500,
+    mileage: 24100,
+    condition: "Excellent",
+    location: "Seattle, WA",
+    image: "/images/tesla1.png",
+    images: ["/images/tesla1.png", "/images/tesla1.png", "/images/tesla1.png", "/images/tesla1.png"],
+    description:
+      "This stunning 2021 Tesla Model 3 Long Range is in excellent condition with only 24,100 miles. Features include Autopilot, Premium Interior, and Full Self-Driving Capability. Single owner, clean title, and full service history available.",
+    features: ["Autopilot", "Premium Interior", "Full Self-Driving Capability", "Heated Seats", "Glass Roof", "Premium Audio", "Navigation", "Mobile Connector"],
+    specs: {
+      year: "2021",
+      make: "Tesla",
+      model: "Model 3",
+      trim: "Long Range",
+      fuelType: "Electric",
+      transmission: "Automatic",
+      drivetrain: "AWD",
+      exteriorColor: "Pearl White",
+    },
+    estimatedValue: 38000,
+    currentHighBid: 33000,
+  },
+  {
+    id: "2",
+    name: "2019 Porsche 718",
+    price: 58000,
+    mileage: 12500,
+    condition: "Pristine",
+    location: "Los Angeles, CA",
+    image: "/images/Porsche.png",
+    images: ["/images/Porsche.png", "/images/Porsche.png", "/images/Porsche.png", "/images/Porsche.png"],
+    description:
+      "Stunning 2019 Porsche 718 in pristine condition with only 12,500 miles. This sports car delivers an exhilarating driving experience with a turbocharged flat-four engine.",
+    features: ["Sport Chrono Package", "Bose Audio", "Heated Seats", "Navigation", "Parking Sensors", "Lane Keep Assist", "Blind Spot Monitor", "Apple CarPlay"],
+    specs: {
+      year: "2019",
+      make: "Porsche",
+      model: "718",
+      trim: "Cayman S",
+      fuelType: "Gasoline",
+      transmission: "PDK",
+      drivetrain: "RWD",
+      exteriorColor: "Guards Red",
+    },
+    estimatedValue: 62000,
+    currentHighBid: 55000,
+  },
+  {
+    id: "3",
+    name: "2023 Toyota Tundra",
+    price: 52400,
+    mileage: 5200,
+    condition: "New",
+    location: "Denver, CO",
+    image: "/images/Toyota.png",
+    images: ["/images/Toyota.png", "/images/Toyota.png", "/images/Toyota.png", "/images/Toyota.png"],
+    description:
+      "Nearly new 2023 Toyota Tundra with only 5,200 miles. This full-size truck combines power and luxury with a twin-turbocharged V6 engine and premium features throughout.",
+    features: ["Toyota Safety Sense", "JBL Audio", "Heated & Ventilated Seats", "Wireless CarPlay", "Multi-Terrain Monitor", "Panoramic Moonroof", "Power Running Boards", "Tow Package"],
+    specs: {
+      year: "2023",
+      make: "Toyota",
+      model: "Tundra",
+      trim: "Platinum",
+      fuelType: "Hybrid",
+      transmission: "Automatic",
+      drivetrain: "4WD",
+      exteriorColor: "Wind Chill Pearl",
+    },
+    estimatedValue: 58000,
+    currentHighBid: 50000,
   },
 ];

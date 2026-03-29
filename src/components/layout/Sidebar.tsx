@@ -50,7 +50,7 @@ export default function Sidebar() {
 
       {/* Search */}
       <div className="px-4 py-4">
-        <div className="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 border border-gray-100">
+        <div className="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 border border-gray-300">
           <svg
             className="text-gray-400 shrink-0"
             width="16"
@@ -83,13 +83,13 @@ export default function Sidebar() {
               className={clsx(
                 "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150",
                 isActive
-                  ? "bg-red-50 text-red-500"
+                  ? "bg-red-50 text-[#D93E39] border-l-[3px] border-[#D93E39]"
                   : "text-gray-500 hover:bg-gray-50 hover:text-gray-800"
               )}
             >
               <Icon
                 size={18}
-                className={clsx(isActive ? "text-red-500" : "text-gray-400")}
+                className={clsx(isActive ? "text-[#D93E39]" : "text-gray-400")}
               />
               {label}
             </Link>

@@ -1,10 +1,12 @@
+import MainLayout from '@/components/layout/MainLayout';
+import SettingsClient from '@/components/settings/SettingsClient';
 import React from 'react';
 
 const settingsPage = () => {
     return (
-        <div>
-            <h1>settings Page</h1>
-        </div>
+        <MainLayout>
+            <SettingsClient />
+        </MainLayout>
     );
 };
 

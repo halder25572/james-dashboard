@@ -1,10 +1,12 @@
+import MainLayout from "@/components/layout/MainLayout";
+import MessagesClient from "@/components/messages/MessagesClient";
 
 
 const messagesPage = () => {
     return (
-        <div>
-            <h1>messages Page</h1>
-        </div>
+        <MainLayout>
+            <MessagesClient />
+        </MainLayout>
     );
 };
 

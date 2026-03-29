@@ -1,10 +1,12 @@
+import MyBidsClient from "@/components/bids/MyBidsClient";
+import MainLayout from "@/components/layout/MainLayout";
 
 
 const MyBidsPage = () => {
     return (
-        <div>
-            <h1>MyBids Page</h1>
-        </div>
+        <MainLayout>
+            <MyBidsClient />
+        </MainLayout>
     );
 };
 

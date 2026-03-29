@@ -1,10 +1,12 @@
+import MainLayout from "@/components/layout/MainLayout";
+import PreferencesClient from "@/components/preferences/PreferencesClient";
 
 
 const preferencesPage = () => {
     return (
-        <div>
-            <h1>preferences Page</h1>
-        </div>
+        <MainLayout>
+            <PreferencesClient />
+        </MainLayout>
     );
 };
 
