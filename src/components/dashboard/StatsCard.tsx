@@ -55,14 +55,14 @@ export default function StatsCard({
         <div className="p-2 bg-red-50 rounded-xl">
           <Image src={icon} width={20} height={20} alt={title} />
         </div>
-        <span className={clsx("text-xs font-medium flex items-center gap-1", badgeColor)}>
+        <span className={clsx("text-xs bg-[rgba(0,212,146,0.10)] p-2 rounded-[100px] font-medium flex items-center gap-1", badgeColor)}>
           <Image src={icon2} width={14} height={14} alt="badge" />
           {badge}
         </span>
       </div>
       <div>
         <p className="text-2xl font-bold text-gray-900">{displayValue}</p>
-        <p className="text-[16px] font-medium text-gray-400 mt-0.5">{title}</p>
+        <p className="text-[16px] font-medium text-[#6D717F] mt-0.5">{title}</p>
       </div>
     </div>
   );

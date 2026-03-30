@@ -11,13 +11,11 @@ export default async function VehicleDetailPage({
   const { id } = await params;
 
   const allData = [...vehicles, ...allVehicles];
-  // deduplicate by id
   const unique = allData.filter(
     (v, index, self) => self.findIndex((x) => x.id === v.id) === index
   );
 
   const vehicle = unique.find((v) => v.id === id) ?? null;
-
   if (!vehicle) return notFound();
 
   return (

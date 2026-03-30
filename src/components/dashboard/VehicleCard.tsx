@@ -1,171 +1,366 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 // "use client";
 
 // import { useState } from "react";
+// import { useRouter } from "next/navigation";
 // import Image from "next/image";
-// import { Heart } from "lucide-react";
-// import clsx from "clsx";
+// import { X } from "lucide-react";
 // import type { Vehicle } from "@/types";
 
-// export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
-//   const [saved, setSaved] = useState(false);
+// // ── Bid Modal ──────────────────────────────────────────────
+// function BidModal({ vehicle, onClose }: { vehicle: Vehicle; onClose: () => void }) {
+//   const [bidAmount, setBidAmount] = useState("");
 
 //   return (
-//     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
-//       {/* Image */}
-//       <div className="relative w-full h-56 bg-gray-100">
-//         <Image
-//           src={vehicle.image}
-//           alt={vehicle.name}
-//           fill
-//           className="object-cover"
-//           onError={(e) => {
-//             (e.currentTarget as HTMLImageElement).src =
-//               "https://placehold.co/400x200/f3f4f6/9ca3af?text=No+Image";
-//           }}
-//         />
-//         {/* Heart button */}
-//         <button
-//           onClick={() => setSaved(!saved)}
-//           className="absolute cursor-pointer top-3 right-3 w-8 h-8 bg-white rounded-xl shadow flex items-center justify-center hover:scale-110 transition-transform"
-//         >
-//           <Heart
-//             size={16}
-//             className={clsx(
-//               "transition-colors",
-//               saved ? "fill-red-500 text-red-500" : "text-gray-400"
-//             )}
-//           />
-//         </button>
-//       </div>
-
-//       {/* Content */}
-//       <div className="p-4 flex flex-col gap-3 flex-1">
-//         {/* Name + Price */}
-//         <div className="flex items-center justify-between">
-//           <h3 className="text-sm font-bold text-gray-900">{vehicle.name}</h3>
-//           <span className="text-sm font-bold text-red-500">
-//             ${vehicle.price.toLocaleString()}
-//           </span>
+//     <div
+//       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+//       onClick={onClose}
+//     >
+//       <div
+//         className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-auto overflow-hidden"
+//         onClick={(e) => e.stopPropagation()}
+//       >
+//         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+//           <div>
+//             <h2 className="text-base font-bold text-red-500">Place Your Bid</h2>
+//             <p className="text-sm text-gray-600 mt-0.5">{vehicle.name}</p>
+//           </div>
+//           <button
+//             onClick={onClose}
+//             className="w-8 h-8 flex cursor-pointer items-center justify-center rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors"
+//           >
+//             <X size={16} className="text-gray-500" />
+//           </button>
 //         </div>
 
-//         {/* Meta */}
-//         <div className="grid grid-cols-3 gap-2 mt-5">
-//           {[
-//             { label: "Mileage", value: `${vehicle.mileage.toLocaleString()} mi` },
-//             { label: "Condition", value: vehicle.condition },
-//             { label: "Location", value: vehicle.location },
-//           ].map((item) => (
-//             <div key={item.label}>
-//               <p className="text-[10px] text-gray-400">{item.label}</p>
-//               <p className="text-xs font-semibold text-gray-700 mt-0.5 leading-tight">
-//                 {item.value}
-//               </p>
+//         <div className="relative w-full h-44 bg-gray-100">
+//           <Image src={vehicle.image} alt={vehicle.name} fill className="object-cover" />
+//         </div>
+
+//         <div className="p-5 space-y-4">
+//           <div>
+//             <label className="text-xs text-gray-500 mb-1.5 block font-medium">Bid Amount</label>
+//             <div className="relative">
+//               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+//               <input
+//                 type="number"
+//                 value={bidAmount}
+//                 onChange={(e) => setBidAmount(e.target.value)}
+//                 placeholder="Enter your bid"
+//                 className="w-full border border-gray-200 rounded-xl pl-7 pr-3 py-2.5 text-sm text-gray-800 outline-none focus:border-red-400 transition-colors"
+//               />
 //             </div>
-//           ))}
-//         </div>
+//           </div>
 
-//         {/* Buttons */}
-//         <div className="flex gap-2 mt-auto pt-1">
-//           <button className="flex-1 cursor-pointer py-2 rounded-xl border border-red-400 text-red-500 text-xs font-semibold transition-colors">
-//             Save Vehicle
-//           </button>
-//           <button className="flex-1 py-2 cursor-pointer rounded-xl bg-[#D93E39] text-white text-xs font-semibold transition-colors">
-//             Place Bid
-//           </button>
+//           <div className="flex gap-2">
+//             {[500, 1000, 2000].map((amt) => (
+//               <button
+//                 key={amt}
+//                 onClick={() => setBidAmount((prev) => String(parseInt(prev || "0") + amt))}
+//                 className="flex-1 py-2 cursor-pointer rounded-xl border border-gray-200 text-xs font-semibold text-gray-600 transition-colors hover:border-red-300 hover:text-red-500"
+//               >
+//                 +${amt >= 1000 ? `${amt / 1000},000` : amt}
+//               </button>
+//             ))}
+//           </div>
+
+//           <div className="bg-gray-50 rounded-xl p-3 space-y-2">
+//             <div className="flex justify-between text-sm">
+//               <span className="text-gray-500">Estimated Value</span>
+//               <span className="font-semibold text-gray-800">
+//                 ${vehicle.estimatedValue?.toLocaleString() ?? "—"}
+//               </span>
+//             </div>
+//             <div className="flex justify-between text-sm">
+//               <span className="text-gray-500">Current High Bid</span>
+//               <span className="font-bold text-red-500">
+//                 ${vehicle.currentHighBid?.toLocaleString() ?? "—"}
+//               </span>
+//             </div>
+//           </div>
+
+//           <div className="flex gap-3 pt-1">
+//             <button
+//               onClick={onClose}
+//               className="flex-1 py-2.5 rounded-xl border cursor-pointer border-gray-200 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors"
+//             >
+//               Cancel
+//             </button>
+//             <button className="flex-1 py-2.5 rounded-xl cursor-pointer bg-[#D93E39] text-white text-sm font-bold transition-colors hover:bg-red-600">
+//               Place Bid
+//             </button>
+//           </div>
 //         </div>
 //       </div>
 //     </div>
 //   );
 // }
 
+// // ── VehicleCard ────────────────────────────────────────────
+// export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
+//   const router = useRouter();
+//   const [showBidModal, setShowBidModal] = useState(false);
+
+//   return (
+//     <>
+//       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+//         {/* Image — no heart icon */}
+//         {/* <div className="relative h-44 w-full bg-gray-100">
+//           <Image src={vehicle.image} alt={vehicle.name} fill className="object-cover" />
+//         </div> */}
+//         <div className="relative w-full aspect-16/10 bg-gray-100 overflow-hidden">
+//           <Image
+//             src={vehicle.image}
+//             alt={vehicle.name}
+//             fill
+//             className="object-cover transition-transform duration-500 group-hover:scale-105"
+//             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+//           />
+//         </div>
+
+//         <div className="p-4 flex flex-col gap-3 flex-1">
+//           <div className="flex items-center justify-between">
+//             <h3 className="text-sm font-bold text-gray-900">{vehicle.name}</h3>
+//             <span className="text-sm font-bold text-[#D93E39]">
+//               ${vehicle.price.toLocaleString()}
+//             </span>
+//           </div>
+
+//           <div className="grid grid-cols-3 gap-2">
+//             {[
+//               { label: "Mileage", value: `${vehicle.mileage.toLocaleString()} mi` },
+//               { label: "Condition", value: vehicle.condition },
+//               { label: "Location", value: vehicle.location },
+//             ].map((item) => (
+//               <div key={item.label}>
+//                 <p className="text-[10px] text-gray-400">{item.label}</p>
+//                 <p className="text-xs font-semibold text-gray-700 mt-0.5 leading-tight">
+//                   {item.value}
+//                 </p>
+//               </div>
+//             ))}
+//           </div>
+
+//           <div className="flex gap-2 mt-auto pt-1">
+//             <button
+//               onClick={() => router.push(`/vehicles/${vehicle.id}`)}
+//               className="flex-1 py-2 rounded-xl border cursor-pointer border-[#D93E39] text-[#D93E39] text-xs font-semibold hover:bg-red-50 transition-colors"
+//             >
+//               See Details
+//             </button>
+//             <button
+//               onClick={() => setShowBidModal(true)}
+//               className="flex-1 py-2 rounded-xl cursor-pointer bg-[#D93E39] text-white text-xs font-semibold hover:bg-red-600 transition-colors"
+//             >
+//               Place Bid
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+
+//       {showBidModal && (
+//         <BidModal vehicle={vehicle} onClose={() => setShowBidModal(false)} />
+//       )}
+//     </>
+//   );
+// }
+
+
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Heart } from "lucide-react";
-import clsx from "clsx";
+import { X } from "lucide-react";
 import type { Vehicle } from "@/types";
-import { useVehicleStore } from "@/store/useVehicleStore";
 
-export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
-  const router = useRouter();
-  const { isSaved, saveVehicle, unsaveVehicle } = useVehicleStore();
-  const saved = isSaved(vehicle.id);
-
-  const toggleSave = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    saved ? unsaveVehicle(vehicle.id) : saveVehicle(vehicle);
-  };
+// ── Bid Modal ──────────────────────────────────────────────
+function BidModal({ vehicle, onClose }: { vehicle: Vehicle; onClose: () => void }) {
+  const [bidAmount, setBidAmount] = useState("");
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
-      {/* Image */}
-      <div className="relative h-44 w-full bg-gray-100">
-        <Image
-          src={vehicle.image}
-          alt={vehicle.name}
-          fill
-          className="object-cover"
-        />
-        <button
-          onClick={toggleSave}
-          className="absolute top-3 right-3 w-8 h-8 bg-white rounded-xl shadow flex items-center justify-center hover:scale-110 transition-transform"
-        >
-          <Heart
-            size={16}
-            className={clsx(
-              "transition-colors",
-              saved ? "fill-red-500 text-red-500" : "text-gray-400"
-            )}
-          />
-        </button>
-      </div>
-
-      {/* Content */}
-      <div className="p-4 flex flex-col gap-3 flex-1">
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-gray-900">{vehicle.name}</h3>
-          <span className="text-sm font-bold text-red-500">
-            ${vehicle.price.toLocaleString()}
-          </span>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-auto overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+          <div>
+            <h2 className="text-base font-bold text-[#D93E39]">Place Your Bid</h2>
+            <p className="text-sm text-gray-600 mt-0.5">{vehicle.name}</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 flex cursor-pointer items-center justify-center rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors"
+          >
+            <X size={16} className="text-gray-500" />
+          </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { label: "Mileage", value: `${vehicle.mileage.toLocaleString()} mi` },
-            { label: "Condition", value: vehicle.condition },
-            { label: "Location", value: vehicle.location },
-          ].map((item) => (
-            <div key={item.label}>
-              <p className="text-[10px] text-gray-400">{item.label}</p>
-              <p className="text-xs font-semibold text-gray-700 mt-0.5 leading-tight">
-                {item.value}
-              </p>
+        {/* Image */}
+        <div className="relative w-full h-44 bg-gray-100">
+          <Image src={vehicle.image} alt={vehicle.name} fill className="object-cover" />
+        </div>
+
+        <div className="p-5 space-y-4">
+          {/* Bid Input */}
+          <div>
+            <label className="text-xs text-gray-500 mb-1.5 block font-medium">
+              Bid Amount
+            </label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">$</span>
+              <input
+                type="number"
+                value={bidAmount}
+                onChange={(e) => setBidAmount(e.target.value)}
+                placeholder="Enter your bid"
+                className="w-full border border-gray-200 rounded-xl pl-7 pr-3 py-2.5 text-sm text-gray-800 outline-none focus:border-[#D93E39] transition-colors"
+              />
             </div>
-          ))}
-        </div>
+          </div>
 
-        <div className="flex gap-2 mt-auto pt-1">
-          <button
-            onClick={toggleSave}
-            className={clsx(
-              "flex-1 py-2 rounded-xl cursor-pointer border text-xs font-semibold transition-colors",
-              saved
-                ? "border-[#D93E39] text-[#D93E39]"
-                : "border-red-400 text-[#D93E39] hover:bg-red-50"
-            )}
-          >
-            {saved ? "Saved ✓" : "Save Vehicle"}
-          </button>
-          <button
-            onClick={() => router.push(`/vehicles/${vehicle.id}`)}
-            className="flex-1 cursor-pointer py-2 rounded-xl bg-[#D93E39] text-white text-xs font-semibold transition-colors"
-          >
-            Place Bid
-          </button>
+          {/* Quick Add */}
+          <div className="flex gap-2">
+            {[500, 1000, 2000].map((amt) => (
+              <button
+                key={amt}
+                onClick={() =>
+                  setBidAmount((prev) => String(parseInt(prev || "0") + amt))
+                }
+                className="flex-1 py-2 rounded-xl cursor-pointer border border-gray-200 text-xs font-semibold text-gray-600 hover:border-red-300 hover:text-[#D93E39] transition-colors"
+              >
+                +${amt >= 1000 ? `${amt / 1000},000` : amt}
+              </button>
+            ))}
+          </div>
+
+          {/* Estimated / High Bid */}
+          <div className="bg-gray-50 rounded-xl p-3 space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-500">Estimated Value</span>
+              <span className="font-semibold text-gray-800">
+                ${vehicle.estimatedValue?.toLocaleString() ?? "—"}
+              </span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-500">Current High Bid</span>
+              <span className="font-bold text-[#D93E39]">
+                ${vehicle.currentHighBid?.toLocaleString() ?? "—"}
+              </span>
+            </div>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex gap-3 pt-1">
+            <button
+              onClick={onClose}
+              className="flex-1 py-2.5 rounded-xl border cursor-pointer border-gray-200 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button className="flex-1 py-2.5 rounded-xl cursor-pointer bg-[#D93E39] text-white text-sm font-bold transition-colors hover:bg-red-600">
+              Place Bid
+            </button>
+          </div>
         </div>
       </div>
     </div>
+  );
+}
+
+// ── VehicleCard ────────────────────────────────────────────
+export default function VehicleCard({
+  vehicle,
+  showPlaceBid = false,
+  showViewDetails = false,
+}: {
+  vehicle: Vehicle;
+  showPlaceBid?: boolean;
+  showViewDetails?: boolean;
+}) {
+  const router = useRouter();
+  const [showBidModal, setShowBidModal] = useState(false);
+
+  return (
+    <>
+      <div
+        onClick={() => router.push(`/vehicles/${vehicle.id}`)}
+        className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col cursor-pointer hover:shadow-md transition-shadow"
+      >
+        {/* Image */}
+        <div className="relative w-full bg-gray-100" style={{ height: "180px" }}>
+          <Image
+            src={vehicle.image}
+            alt={vehicle.name}
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        {/* Content */}
+        <div className="p-4 flex flex-col gap-3 flex-1">
+          {/* Name + Price */}
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-bold text-gray-900">{vehicle.name}</h3>
+            <span className="text-sm font-bold text-[#D93E39]">
+              ${vehicle.price.toLocaleString()}
+            </span>
+          </div>
+
+          {/* Meta */}
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { label: "Mileage", value: `${vehicle.mileage.toLocaleString()} mi` },
+              { label: "Condition", value: vehicle.condition },
+              { label: "Location", value: vehicle.location },
+            ].map((item) => (
+              <div key={item.label}>
+                <p className="text-[10px] text-gray-400">{item.label}</p>
+                <p className="text-xs font-semibold text-gray-700 mt-0.5 leading-tight">
+                  {item.value}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Buttons */}
+          {(showViewDetails || showPlaceBid) && (
+            <div className="flex gap-2 mt-auto pt-1">
+              {showViewDetails && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/vehicles/${vehicle.id}`);
+                  }}
+                  className="flex-1 py-2.5 cursor-pointer rounded-xl border border-[#D93E39] text-[#D93E39] text-xs font-bold hover:bg-red-50 transition-colors"
+                >
+                  View Details
+                </button>
+              )}
+              {showPlaceBid && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowBidModal(true);
+                  }}
+                  className="flex-1 py-2.5 cursor-pointer rounded-xl bg-[#D93E39] text-white text-xs font-bold hover:bg-red-600 transition-colors"
+                >
+                  Place Bid
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Bid Modal */}
+      {showBidModal && (
+        <BidModal vehicle={vehicle} onClose={() => setShowBidModal(false)} />
+      )}
+    </>
   );
 }
